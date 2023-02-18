@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyouSIK Streaming</title>
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/validation.js"></script>
 </head>
 
 <body>
@@ -28,7 +30,28 @@
                 </div>
         </nav>
 
-
+        <section class="login-form">
+            <div class="form-box">
+                <form>
+                    <br><br>
+                    <h1>Username</h1>
+                    <div>
+                        <input type="text" id="username">
+                        <br>
+                        <label class="error" for="firstname" id="username_missing_error">This field is required.</label>
+                    </div>
+                    <h1>Password </h1>
+                    <div>
+                        <input type="password" id="password">
+                        <br>
+                        <label class="error" for="password" id="password_missing_error">This field is required.</label>
+                    </div>
+                    <a href="index.h">forgot password</a>
+                    <br><br><br><br>
+                    <button type="submit" id="login-btn">Login</button>
+            </div>
+            </form>
+        </section>
 
 </body>
 <section class="foot">
