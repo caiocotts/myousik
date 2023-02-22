@@ -19,7 +19,8 @@ $(function () {
         } 
 
         if (checked) {
-            alert("First name: " + username + "\n" + "Password: " + password + "\n" )
+            // alert("First name: " + username + "\n" + "Password: " + password + "\n" )
+            location.href = '../index.html'
             
             return true
         }

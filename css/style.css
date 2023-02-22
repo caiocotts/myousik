@@ -110,6 +110,24 @@
     cursor: pointer;
 }
 
+#login-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+
+#login-btn:hover {
+    border: 1px solid #fec7c4;
+    background: white;
+    transition: 1s;
+}
+
 /*--Header Feedback sent--*/
 .header-sent {
     min-height: 100vh;
