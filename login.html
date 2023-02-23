@@ -31,7 +31,7 @@
         </nav>
 
         <section class="login-form">
-            <div class="form-box">
+            <div class="form-box" id="form-box">
                 <form>
                     <br><br>
                     <h1>Username</h1>
@@ -39,18 +39,20 @@
                         <input type="text" id="username">
                         <br>
                         <label class="error" for="firstname" id="username_missing_error">This field is required.</label>
+                        <label class="error" for="firstname" id="username_format_error">The username must begin with a
+                            letter and contain no symbols.</label>
                     </div>
                     <h1>Password </h1>
                     <div>
                         <input type="password" id="password">
                         <br>
                         <label class="error" for="password" id="password_missing_error">This field is required.</label>
+                        <label class="error" for="password" id="password_format_error">Password must be 8 to 16
+                            characters long, start with a letter, have a ! or * in it, and have a number.</label>
                     </div>
-                    <a href="information.html">forgot password</a>
+                    <a href="index.html">forgot password</a>
                     <br><br><br>
-                    <!-- <button type="submit" id="login-btn">Login</button> -->
-                    <a type="submit" id="login-btn">Login</a>
-
+                    <a type="submit" href="loginsent.html" id="login-btn">Login</a>
             </div>
             </form>
         </section>
@@ -58,7 +60,7 @@
 </body>
 <section class="foot">
     <footer class="footer">
-        <p>Author: Medi Muamba, Caio Q, Aaron Jara, Chidinma Etumni</p>
+        <p>Authors: Medi Muamba N01320883, Caio Q N01415150 , Aaron Jara N01299554, Chidinma Etumni N00574991</p>
         <p>Copyright <a href="https://humber.ca/legal-and-risk-management/policies/academic/copyright-policy.html">For
                 more information click here</a></p>
     </footer>
