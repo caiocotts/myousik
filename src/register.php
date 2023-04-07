@@ -11,7 +11,8 @@
 <body>
     <?php
 
-    $username = $usernameErr = $passwordErr = "";
+    $username = $usernameErr
+        = $passwordErr = $password2Err = "";
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($_POST["username"])) {
@@ -22,7 +23,10 @@
         if (empty($_POST["password"])) {
             $passwordErr = "password field cannot be empty";
         }
-        if ($usernameErr === "" && $passwordErr === "") {
+        if ($_POST["password"] != $_POST["password2"]) {
+            $password2Err = "passwords do not match";
+        }
+        if ($usernameErr === "" && $passwordErr === "" && $password2Err === "") {
             header("Location: loginsent.html");
         }
     }
@@ -50,7 +54,7 @@
                     <br><br>
                     <h1>Username</h1>
                     <div>
-                        <input type="text" name="username" id="username" value="<?php echo $username ?>">
+                        <input type="text" name="username" value="<?php echo $username ?>">
                         <br>
                         <span class="error">
                             <?php echo $usernameErr ?>
@@ -58,16 +62,25 @@
                     </div>
                     <h1>Password</h1>
                     <div>
-                        <input type="password" name="password" id="password">
+                        <input type="password" name="password">
                         <br>
                         <span class="error">
                             <?php echo $passwordErr ?>
                         </span>
                     </div>
-                    <a href="register.php">sign up</a>
+                    <h1>Re-enter password</h1>
+                    <div>
+                        <input type="password" name="password2">
+                        <br>
+                        <span class="error">
+                            <?php echo $password2Err ?>
+                        </span>
+                    </div>
+                    <a href="login.php">login</a>
                     <br><br><br>
                     <input type="submit" id="login-btn" value="Login" />
                     </br></br>
+
             </div>
             </form>
         </section>
