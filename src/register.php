@@ -11,6 +11,19 @@
 <body>
     <?php
 
+    function genSalt()
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        $length = 60;
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        return $randomString;
+    }
+
     $username = $usernameErr
         = $passwordErr = $password2Err = "";
 
@@ -27,7 +40,20 @@
             $password2Err = "passwords do not match";
         }
         if ($usernameErr === "" && $passwordErr === "" && $password2Err === "") {
-            header("Location: loginsent.html");
+            $dbc = mysqli_connect("mysql", "root", "n01415150", "myousik") or die("error: connection failed");
+
+            $salt = genSalt();
+            $hash = hash("sha256", $_POST["password"], false);
+
+            $sql = "insert into users values (null, '$username', '$salt', '$hash');";
+            $result = mysqli_query($dbc, "select username from users where username = '$username'");
+            if ($result->num_rows > 0) {
+                $usernameErr = "user already exists";
+            } else {
+                mysqli_query($dbc, $sql) or die("error: could not query database");
+                mysqli_close($dbc);
+                header("Location: loginsent.html");
+            }
         }
     }
     ?>
@@ -78,7 +104,7 @@
                     </div>
                     <a href="login.php">login</a>
                     <br><br><br>
-                    <input type="submit" id="login-btn" value="Login" />
+                    <input type="submit" id="login-btn" value="Register" />
                     </br></br>
 
             </div>
