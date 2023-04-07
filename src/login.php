@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -8,8 +9,8 @@
 </head>
 
 <body>
-
     <?php
+
     $username = $password = $usernameErr = $passwordErr = "";
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -22,6 +23,9 @@
             $passwordErr = "password field cannot be empty";
         } else {
             $password = $_POST["password"];
+        }
+        if ($usernameErr === "" && $passwordErr === "") {
+            header("Location: loginsent.html");
         }
     }
     ?>
@@ -37,7 +41,7 @@
                         <li><a href="about.html">ABOUT</a></li>
                         <li><a href="information.html">INFORMATION</a></li>
                         <li><a href="feedback.html">FEEDBACK</a></li>
-                        <li><a href="login.html">LOGIN</a></li>
+                        <li><a href="login.php">LOGIN</a></li>
                     </ul>
                 </div>
         </nav>
@@ -62,7 +66,7 @@
                             <?php echo $passwordErr ?>
                         </span>
                     </div>
-                    <a href="information.html">forgot password</a>
+                    <a href="information.html">sign up</a>
                     <br><br><br>
                     <input type="submit" id="login-btn" value="Login" />
 
@@ -80,3 +84,6 @@
 </section>
 
 </html>
+<?php
+ob_end_flush();
+?>
