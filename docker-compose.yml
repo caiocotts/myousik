@@ -1,7 +1,18 @@
 services:
-  apache:
-    image: httpd
+  php-apache:
     ports:
-      - "8080:80"
+      - "80:80"
+    build: './build/php'
     volumes:
-      - .:/usr/local/apache2/htdocs/
+      - ./src:/var/www/html
+  mysql:
+    ports:
+      - "3306:3306"
+    build: './build/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: "n01415150"
+      MYSQL_DATABASE: "myousik"
+    volumes:
+      - dbData:/var/lib/mysql
+volumes:
+  dbData:
