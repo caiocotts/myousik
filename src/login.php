@@ -13,6 +13,8 @@
 
     $username = $usernameErr = $passwordErr = "";
 
+
+
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($_POST["username"])) {
             $usernameErr = "name field cannot be empty";
@@ -23,7 +25,17 @@
             $passwordErr = "password field cannot be empty";
         }
         if ($usernameErr === "" && $passwordErr === "") {
-            header("Location: loginsent.html");
+            $dbc = mysqli_connect("mysql", "root", "n01415150", "myousik") or die("error: connection failed");
+
+            $sql = "select salt, hash from users where username = '$username'";
+            $result = mysqli_query($dbc, $sql);
+            $row = mysqli_fetch_assoc($result);
+            if ($result->num_rows > 0 && hash("sha256", $row["salt"] . $_POST["password"], false) === $row["hash"]) {
+                header("Location: loginsent.html");
+            } else {
+                $usernameErr = "incorrect username or password";
+            }
+            mysqli_close($dbc);
         }
     }
     ?>

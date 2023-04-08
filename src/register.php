@@ -39,11 +39,12 @@
         if ($_POST["password"] != $_POST["password2"]) {
             $password2Err = "passwords do not match";
         }
+
         if ($usernameErr === "" && $passwordErr === "" && $password2Err === "") {
             $dbc = mysqli_connect("mysql", "root", "n01415150", "myousik") or die("error: connection failed");
 
             $salt = genSalt();
-            $hash = hash("sha256", $_POST["password"], false);
+            $hash = hash("sha256", $salt . $_POST["password"], false);
 
             $sql = "insert into users values (null, '$username', '$salt', '$hash');";
             $result = mysqli_query($dbc, "select username from users where username = '$username'");
