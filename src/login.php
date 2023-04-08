@@ -1,4 +1,4 @@
-<?php ob_start(); ?>
+<?php ob_start() ?>
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +10,7 @@
 
 <body>
     <?php
+    session_start();
 
     $username = $usernameErr = $passwordErr = "";
 
@@ -27,11 +28,12 @@
         if ($usernameErr === "" && $passwordErr === "") {
             $dbc = mysqli_connect("mysql", "root", "n01415150", "myousik") or die("error: connection failed");
 
-            $sql = "select salt, hash from users where username = '$username'";
+            $sql = "select salt, hash, is_admin from users where username = '$username'";
             $result = mysqli_query($dbc, $sql);
             $row = mysqli_fetch_assoc($result);
             if ($result->num_rows > 0 && hash("sha256", $row["salt"] . $_POST["password"], false) === $row["hash"]) {
-                header("Location: loginsent.html");
+                $_SESSION["is_admin"] = $row["is_admin"];
+                header("Location: loginsent.php");
             } else {
                 $usernameErr = "incorrect username or password";
             }
@@ -94,6 +96,4 @@
 </section>
 
 </html>
-<?php
-ob_end_flush();
-?>
+<?php ob_end_flush() ?>

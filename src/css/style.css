@@ -148,6 +148,9 @@ nav {
 }
 
 nav img {
+    /* position:; */
+    /* top: 2;
+    left: 21; */
     padding-left: 0%;
     width: 98px;
 }
@@ -621,4 +624,11 @@ nav img {
 
 form .error {
     color: #ff0000;
+}
+
+.admin {
+    text-align: center;
+    padding-top: 80px;
+    font-size: 58px;
+    font-weight: 600;
 }

@@ -1,3 +1,4 @@
+<?php ob_start() ?>
 <!DOCTYPE html>
 <html>
 
@@ -8,11 +9,8 @@
 </head>
 
 <body>
-    <!--Jscript-->
-
-
-
-    <!--Header-->
+    <?php session_start();
+    echo $_SESSION["is_admin"]; ?>
     <section class="header-feedsent">
         <nav>
             <br>
@@ -47,3 +45,4 @@
         </section>
 
 </html>
+<?php ob_start() ?>

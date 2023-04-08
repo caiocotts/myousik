@@ -46,14 +46,14 @@
             $salt = genSalt();
             $hash = hash("sha256", $salt . $_POST["password"], false);
 
-            $sql = "insert into users values (null, '$username', '$salt', '$hash');";
+            $sql = "insert into users values (null, '$username', '$salt', '$hash', false);";
             $result = mysqli_query($dbc, "select username from users where username = '$username'");
             if ($result->num_rows > 0) {
                 $usernameErr = "user already exists";
             } else {
                 mysqli_query($dbc, $sql) or die("error: could not query database");
                 mysqli_close($dbc);
-                header("Location: loginsent.html");
+                header("Location: login.php");
             }
         }
     }
