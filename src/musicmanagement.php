@@ -33,12 +33,12 @@
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"]) && $_POST["action"] == "create") {
-            $name = $mysqli->real_escape_string($_POST["name"]);
+            $title = $mysqli->real_escape_string($_POST["title"]);
             $artist = $mysqli->real_escape_string($_POST["artist"]);
             $album = $mysqli->real_escape_string($_POST["album"]);
             $file_path = $mysqli->real_escape_string($_POST["file_path"]);
 
-            $mysqli->query("INSERT INTO songs (name, artist, album, file_path) VALUES ('$name', '$artist', '$album', '$file_path')");
+            $mysqli->query("INSERT INTO songs (title, artist, album, file_path) VALUES ('$title', '$artist', '$album', '$file_path')");
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"]) && $_POST["action"] == "delete") {
@@ -48,12 +48,12 @@
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"]) && $_POST["action"] == "update") {
             $id = $mysqli->real_escape_string($_POST["id"]);
-            $name = $mysqli->real_escape_string($_POST["name"]);
+            $title = $mysqli->real_escape_string($_POST["title"]);
             $artist = $mysqli->real_escape_string($_POST["artist"]);
             $album = $mysqli->real_escape_string($_POST["album"]);
             $file_path = $mysqli->real_escape_string($_POST["file_path"]);
 
-            $mysqli->query("UPDATE songs SET name = '$name', artist = '$artist', album = '$album', file_path = '$file_path' WHERE id = $id");
+            $mysqli->query("UPDATE songs SET title = '$title', artist = '$artist', album = '$album', file_path = '$file_path' WHERE id = $id");
         }
 
         $result = $mysqli->query("SELECT * FROM songs");
@@ -64,17 +64,17 @@
         }
 
         echo "<table class='striped'>";
-        echo "<thead><tr><th>ID</th><th>Name</th><th>Artist</th><th>Album</th><th>File Path</th><th>Action</th></tr></thead>";
+        echo "<thead><tr><th>ID</th><th>Title</th><th>Artist</th><th>Album</th><th>File Path</th><th>Action</th></tr></thead>";
         echo "<tbody>";
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . $row["id"] . "</td>";
-            echo "<td>" . htmlspecialchars($row["name"]) . "</td>";
+            echo "<td>" . htmlspecialchars($row["title"]) . "</td>";
             echo "<td>" . htmlspecialchars($row["artist"]) . "</td>";
             echo "<td>" . htmlspecialchars($row["album"]) . "</td>";
             echo "<td>" . htmlspecialchars($row["file_path"]) . "</td>";
             echo "<td><button class='btn red lighten-2' onclick='deleteSong(" . $row["id"] . ")'><i class='material-icons'>delete</i></button></td>";
-            echo "<td><button class='btn blue lighten-2' onclick='openEditModal(" . $row["id"] . ", \"" . htmlspecialchars(addslashes($row["name"])) . "\", \"" . htmlspecialchars(addslashes($row["artist"])) . "\", \"" . htmlspecialchars(addslashes($row["album"])) . "\", \"" . htmlspecialchars(addslashes($row["file_path"])) . "\")'><i class='material-icons'>edit</i></button></td>";
+            echo "<td><button class='btn blue lighten-2' onclick='openEditModal(" . $row["id"] . ", \"" . htmlspecialchars(addslashes($row["title"])) . "\", \"" . htmlspecialchars(addslashes($row["artist"])) . "\", \"" . htmlspecialchars(addslashes($row["album"])) . "\", \"" . htmlspecialchars(addslashes($row["file_path"])) . "\")'><i class='material-icons'>edit</i></button></td>";
             echo "</tr>";
         }
         echo "</tbody>";
@@ -88,8 +88,8 @@
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <input type="hidden" name="action" value="create">
             <div class="input-field">
-                <input type="text" name="name" id="name" required>
-                <label for="name">Song Name</label>
+                <input type="text" name="title" id="title" required>
+                <label for="title">Song Title</label>
             </div>
             <div class="input-field">
                 <input type="text" name="artist" id="artist" required>
@@ -114,8 +114,8 @@
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="id" id="edit_id">
                 <div class="input-field">
-                    <input type="text" name="name" id="edit_name" required>
-                    <label for="edit_name">Song Name</label>
+                    <input type="text" name="title" id="edit_title" required>
+                    <label for="edit_title">Song Title</label>
                 </div>
                 <div class="input-field">
                     <input type="text" name="artist" id="edit_artist" required>
@@ -158,12 +158,12 @@
             var instances = M.Modal.init(elems);
         });
 
-        function openEditModal(id, name, artist, album, file_path) {
+        function openEditModal(id, title, artist, album, file_path) {
             var modal = document.querySelector('#editSongModal');
             M.Modal.getInstance(modal).open();
 
             document.querySelector('#edit_id').value = id;
-            document.querySelector('#edit_name').value = name;
+            document.querySelector('#edit_title').value = title;
             document.querySelector('#edit_artist').value = artist;
             document.querySelector('#edit_album').value = album;
             document.querySelector('#edit_file_path').value = file_path;

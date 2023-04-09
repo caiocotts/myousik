@@ -4,6 +4,7 @@ services:
       - "80:80"
     build: './build/php'
     volumes:
+      - ./media:/var/www/html/media
       - ./src:/var/www/html
   mysql:
     ports:

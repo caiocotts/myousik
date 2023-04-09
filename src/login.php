@@ -33,7 +33,7 @@
             $row = mysqli_fetch_assoc($result);
             if ($result->num_rows > 0 && hash("sha256", $row["salt"] . $_POST["password"], false) === $row["hash"]) {
                 $_SESSION["is_admin"] = $row["is_admin"];
-                header("Location: loginsent.php");
+                header("Location: content.php");
             } else {
                 $usernameErr = "incorrect username or password";
             }

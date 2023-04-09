@@ -32,9 +32,9 @@
             exit();
         }
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["uid"])) {
-            $uid = $mysqli->real_escape_string($_POST["uid"]);
-            $mysqli->query("DELETE FROM users WHERE uid = $uid");
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
+            $id = $mysqli->real_escape_string($_POST["id"]);
+            $mysqli->query("DELETE FROM users WHERE id = $id");
         }
 
         $result = $mysqli->query("SELECT * FROM users");
@@ -49,12 +49,12 @@
         echo "<tbody>";
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>" . $row["uid"] . "</td>";
+            echo "<td>" . $row["id"] . "</td>";
             echo "<td>" . htmlspecialchars($row["username"]) . "</td>";
             echo "<td>" . substr($row["hash"], 0, 10) . "..." . "</td>";
             echo "<td>" . substr($row["salt"], 0, 10) . "..." . "</td>";
             echo "<td>" . $row["is_admin"] . "</td>";
-            echo "<td><button class='btn red lighten-2' onclick='deleteUser(" . $row["uid"] . ")'><i class='material-icons'>delete</i></button></td>";
+            echo "<td><button class='btn red lighten-2' onclick='deleteUser(" . $row["id"] . ")'><i class='material-icons'>delete</i></button></td>";
             echo "</tr>";
         }
         echo "</tbody>";
@@ -66,7 +66,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-        function deleteUser(uid) {
+        function deleteUser(id) {
             if (confirm("Are you sure you want to delete this user?")) {
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", window.location.href, true);
@@ -76,7 +76,7 @@
                         location.reload();
                     }
                 };
-                xhr.send("uid=" + encodeURIComponent(uid));
+                xhr.send("id=" + encodeURIComponent(id));
             }
         }
     </script>
