@@ -38,7 +38,7 @@
 .header-feed {
     min-height: 100vh;
     width: 100;
-    background-image: url(/images/background2.jpg);
+    background-image: linear-gradient(rgba(99, 77, 88, 0.479), rgba(95, 70, 78, 0.479)), url(/images/background2.jpg);
     background-position: center;
     background-size: cover;
     position: relative;
@@ -148,7 +148,7 @@ nav {
 }
 
 nav img {
-    /* position:; */
+    /* position:;
     /* top: 2;
     left: 21; */
     padding-left: 0%;
